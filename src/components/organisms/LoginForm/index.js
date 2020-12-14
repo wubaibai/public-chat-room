@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { firebaseRef } from '../../../modules/firebase';
 import style from './index.module.css';
 
 const LoginForm = ({ setUser }) => {
     const [name, setName] = useState('');
+    const nameInputRef = useRef(null);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +29,10 @@ const LoginForm = ({ setUser }) => {
         });
     };
 
+    useEffect(() => {
+        nameInputRef.current.focus();
+    }, [nameInputRef]);
+
     return (
         <div className={style.loginForm}>
             <div>
@@ -35,6 +40,7 @@ const LoginForm = ({ setUser }) => {
                 <h3 className={style.subTitle}>Please give your name to join :)</h3>
                 <form onSubmit={onSubmit}>
                     <input
+                        ref={nameInputRef}
                         className={style.input}
                         type="text"
                         value={name}
