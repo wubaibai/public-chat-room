@@ -12,17 +12,17 @@ const firebaseConfig = {
     measurementId: "G-JRVBKP32JR"
 };
 
+export const firebaseRef = {
+    comments: null,
+    users: null,
+};
+
 export const init = () => {
     firebase.initializeApp(firebaseConfig);
 
     const database = firebase.database();
-    const commentsRef = database.ref('room/comments');
-    const usersRef = database.ref('room/users');
-
-    return {
-        commentsRef,
-        usersRef,
-    };
+    firebaseRef.comments = database.ref('room/comments');
+    firebaseRef.users = database.ref('room/users');
 };
 
 export default 'firebase';
