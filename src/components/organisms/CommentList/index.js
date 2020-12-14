@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import Message from '../../molecules/Message/index';
 import style from './index.module.css';
+
+const ListEnd = () => {
+    const listEndRef = useRef();
+
+    useEffect(() => {
+        listEndRef.current.scrollIntoView();
+    });
+
+    return (
+        <div ref={listEndRef} />
+    );
+};
 
 const CommentList = ({ comments, users }) => {
     const list = comments.map((comment) => (
@@ -13,8 +25,11 @@ const CommentList = ({ comments, users }) => {
     ));
 
     return (
-        <div className={style.commentList}>{list}</div>
-    )
+        <div className={style.commentList}>
+            {list}
+            <ListEnd />
+        </div>
+    );
 };
 
 export default CommentList;
