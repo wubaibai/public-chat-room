@@ -1,0 +1,17 @@
+.commentForm {
+    width: 100%;
+    border-radius: 4px;
+    background-color: #eee;
+}
+
+.commentForm > form {
+    width: 100%;
+    padding: 8px;
+}
+
+.input {
+    width: 100%;
+    outline: none;
+    border: none;
+    background: transparent;
+}

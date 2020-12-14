@@ -1,0 +1,12 @@
+.message {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.avatar {
+
+}
+
+.info {
+    margin-left: 8px;
+}
