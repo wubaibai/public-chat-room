@@ -7,7 +7,7 @@ import LoginForm from '../components/organisms/LoginForm/index';
 import { init as initFirebase, firebaseRef } from '../modules/firebase';
 import style from './index.module.css';
 
-const ChatRoom = () => {
+const ChatRoom = React.memo(() => {
     const [comments, setComments] = useState([]);
     const [users, setUsers] = useState({});
     const [user, setUser] = useState({});
@@ -62,6 +62,6 @@ const ChatRoom = () => {
     } else {
         return <LoginForm setUser={setUser} />
     }
-};
+});
 
 export default ChatRoom;

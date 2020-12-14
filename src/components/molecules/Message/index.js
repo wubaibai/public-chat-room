@@ -5,7 +5,7 @@ import MessageText from '../../atoms/MessageText/index';
 import Name from '../../atoms/Name/index';
 import style from './index.module.css';
 
-const Message = ({
+const Message = React.memo(({
     name,
     text,
 }) => {
@@ -20,6 +20,6 @@ const Message = ({
             </div>
         </div>
     )
-};
+});
 
 export default Message;

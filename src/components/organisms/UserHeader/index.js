@@ -5,7 +5,7 @@ import MessageText from '../../atoms/MessageText/index';
 import Name from '../../atoms/Name/index';
 import style from './index.module.css';
 
-const UserHeader = ({
+const UserHeader = React.memo(({
     user,
 }) => {
     return (
@@ -15,6 +15,6 @@ const UserHeader = ({
             <button className={style.logoutButton}>Logout</button>
         </div>
     )
-};
+});
 
 export default UserHeader;
