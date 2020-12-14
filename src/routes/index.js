@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
+import UserHeader from '../components/organisms/UserHeader/index'
 import CommentList from '../components/organisms/CommentList/index';
 import CommentForm from '../components/organisms/CommentForm/index';
 import LoginForm from '../components/organisms/LoginForm/index';
 import { init as initFirebase, firebaseRef } from '../modules/firebase';
+import style from './index.module.css';
 
 const ChatRoom = () => {
     const [comments, setComments] = useState([]);
@@ -31,6 +33,14 @@ const ChatRoom = () => {
             setComments(result);
         });
 
+        /**
+         * For Quick Development before localstorage setup
+         */
+        setUser({
+            name: 'Cathy',
+            id: '-MOU5gRREq4X8BkWqjU3',
+        });
+
         return () => {
             firebaseRef.users.off();
             firebaseRef.comments.off();
@@ -39,9 +49,14 @@ const ChatRoom = () => {
 
     if (user.name && user.id) {
         return (
-            <div>
-                <CommentList comments={comments} users={users}/>
-                <CommentForm user={user} />
+            <div className={style.chatroom}>
+                <UserHeader user={user} />
+                <div className={style.commentList}>
+                    <CommentList comments={comments} users={users}/>
+                </div>
+                <div className={style.commentForm}>
+                    <CommentForm user={user} />
+                </div>
             </div>
         )
     } else {
