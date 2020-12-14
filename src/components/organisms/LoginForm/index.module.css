@@ -1,0 +1,35 @@
+.loginForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    background: #004b62;
+    color: #81c0c6;
+}
+
+.title {
+    margin-bottom: 16px;
+}
+
+.subTitle {
+    color: white;
+}
+
+.input {
+    width: 100%;
+    padding: 16px;
+    outline: none;
+    border: none;
+    background:white;
+    color: #004b62;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.input::placeholder {
+    color: #ddd;
+}
