@@ -19,7 +19,7 @@ const CommentList = ({ comments, users }) => {
     const list = comments.map((comment) => (
         <Message
             key={comment.id}
-            name={users[comment.userId].name}
+            name={users[comment.userId] ? users[comment.userId].name : '**Deleted User**' }
             text={comment.text}
         />
     ));

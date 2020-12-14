@@ -11,10 +11,30 @@ const ChatRoom = React.memo(() => {
     const [comments, setComments] = useState([]);
     const [users, setUsers] = useState({});
     const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
     const storage = window.localStorage;
+
+    const onLogout = () => {
+        setUser({});
+        storage.removeItem('chat-room:userName');
+        storage.removeItem('chat-room:userId');
+    };
 
     useEffect(() => {
         initFirebase();
+
+        /**
+         * For Quick Development before localstorage setup
+         */
+        const userName = storage.getItem('chat-room:userName');
+        const userId = storage.getItem('chat-room:userId');
+        if (userName && userId) {
+            setUser({
+                name: userName,
+                id: userId,
+            });
+        }
+        setLoading(false);
 
         firebaseRef.users.on('value', (usersSnapshot) => {
             const result = {};
@@ -22,27 +42,6 @@ const ChatRoom = React.memo(() => {
                 result[userSnapshot.key] = userSnapshot.val();
             });
             setUsers(result);
-
-            /**
-             * For Quick Development before localstorage setup
-             */
-            const userName = storage.getItem('chat-room:userName');
-            const userId = storage.getItem('chat-room:userId');
-            if (userName && userId) {
-                if (!result[userId]) {
-                    /**
-                     * Delete on firebase
-                     */
-                    storage.removeItem('chat-room:userName');
-                    storage.removeItem('chat-room:userId');
-                    setUsers({});
-                } else {
-                    setUser({
-                        name: userName,
-                        id: userId,
-                    });
-                }
-            }
         });
 
         firebaseRef.comments.orderByChild('timestamp').on('value', (commentsSnapshot) => {
@@ -61,10 +60,14 @@ const ChatRoom = React.memo(() => {
         };
     }, []);
 
+    if (loading) {
+        return '';
+    }
+    
     if (user.name && user.id) {
         return (
             <div className={style.chatroom}>
-                <UserHeader user={user} />
+                <UserHeader user={user} onLogout={onLogout} />
                 <div className={style.commentList}>
                     <CommentList comments={comments} users={users}/>
                 </div>
@@ -73,7 +76,9 @@ const ChatRoom = React.memo(() => {
                 </div>
             </div>
         )
-    } else {
+    }
+
+    if (!user.name || !user.id) {
         return <LoginForm setUser={setUser} />
     }
 });
