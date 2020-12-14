@@ -11,6 +11,7 @@ const ChatRoom = React.memo(() => {
     const [comments, setComments] = useState([]);
     const [users, setUsers] = useState({});
     const [user, setUser] = useState({});
+    const storage = window.localStorage;
 
     useEffect(() => {
         initFirebase();
@@ -21,6 +22,27 @@ const ChatRoom = React.memo(() => {
                 result[userSnapshot.key] = userSnapshot.val();
             });
             setUsers(result);
+
+            /**
+             * For Quick Development before localstorage setup
+             */
+            const userName = storage.getItem('chat-room:userName');
+            const userId = storage.getItem('chat-room:userId');
+            if (userName && userId) {
+                if (!result[userId]) {
+                    /**
+                     * Delete on firebase
+                     */
+                    storage.removeItem('chat-room:userName');
+                    storage.removeItem('chat-room:userId');
+                    setUsers({});
+                } else {
+                    setUser({
+                        name: userName,
+                        id: userId,
+                    });
+                }
+            }
         });
 
         firebaseRef.comments.orderByChild('timestamp').on('value', (commentsSnapshot) => {
@@ -31,14 +53,6 @@ const ChatRoom = React.memo(() => {
                 result.push(commentData);
             });
             setComments(result);
-        });
-
-        /**
-         * For Quick Development before localstorage setup
-         */
-        setUser({
-            name: 'Cathy',
-            id: '-MOU5gRREq4X8BkWqjU3',
         });
 
         return () => {

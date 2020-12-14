@@ -6,6 +6,7 @@ import style from './index.module.css';
 const LoginForm = ({ setUser }) => {
     const [name, setName] = useState('');
     const nameInputRef = useRef(null);
+    const storage = window.localStorage;
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -21,6 +22,9 @@ const LoginForm = ({ setUser }) => {
             if (err) {
                 return;
             }
+
+            storage.setItem('chat-room:userName', name);
+            storage.setItem('chat-room:userId', newUser.key);
 
             setUser({
                 name: name,
