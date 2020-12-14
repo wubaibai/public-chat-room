@@ -6,7 +6,6 @@
 
 .commentForm > form {
     width: 100%;
-    padding: 8px;
 }
 
 .input {
@@ -14,4 +13,11 @@
     outline: none;
     border: none;
     background: transparent;
+    border: #fff 1px solid;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.input:focus {
+    border: #81c0c6 1px solid;
 }

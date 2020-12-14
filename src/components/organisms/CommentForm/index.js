@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { firebaseRef } from '../../../modules/firebase';
 import style from './index.module.css';
@@ -7,6 +7,7 @@ const CommentForm = ({
     user,
 }) => {
     const [message, setMessage] = useState('');
+    const commentInput = useRef(null);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -28,10 +29,15 @@ const CommentForm = ({
         });
     };
 
+    useEffect(() => {
+        commentInput.current.focus();
+    }, [commentInput]);
+
     return (
         <div className={style.commentForm}>
             <form onSubmit={onSubmit}>
                 <input
+                    ref={commentInput}
                     className={style.input}
                     type="text"
                     placeholder="Typing Message Here"
