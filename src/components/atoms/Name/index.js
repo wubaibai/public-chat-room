@@ -2,9 +2,9 @@ import React from 'react';
 
 import style from './index.module.css';
 
-const UserName = () => {
+const UserName = ({ name }) => {
     return (
-        <div className={style.username}>Cathy</div>
+        <div className={style.username}>{name}</div>
     )
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ChatRoom from './components/organisms/ChatRoom/index';
+import ChatRoom from './routes/index';
 
 ReactDOM.render(
     <ChatRoom />,
